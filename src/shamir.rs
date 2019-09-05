@@ -11,6 +11,7 @@
 
 use rand;
 use numtheory::*;
+use std::prelude::v1::*;
 
 /// Parameters for the Shamir scheme, specifying privacy threshold and total number of shares.
 ///
@@ -91,7 +92,7 @@ impl ShamirSecretSharing {
         // sample the remaining coefficients randomly using secure randomness
         use rand::distributions::Sample;
         let mut range = rand::distributions::range::Range::new(0, self.prime - 1);
-        let mut rng = rand::OsRng::new().unwrap();
+        let mut rng = rand::SgxRng::new().unwrap();
         let random_coefficients: Vec<i64> =
             (0..self.threshold).map(|_| range.sample(&mut rng)).collect();
         coefficients.extend(random_coefficients);

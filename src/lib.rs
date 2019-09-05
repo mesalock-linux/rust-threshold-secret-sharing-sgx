@@ -13,7 +13,14 @@
 //! For now, secrets and shares are fixed as prime field elements
 //! represented by `i64` values.
 
-extern crate rand;
+#![cfg_attr(all(feature = "mesalock_sgx",
+                not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use]
+extern crate sgx_tstd as std;
+extern crate sgx_rand as rand;
 
 mod fields;
 mod numtheory;

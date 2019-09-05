@@ -9,6 +9,7 @@
 //! FFT by in-place Cooley-Tukey algorithms.
 
 use super::Field;
+use std::prelude::v1::*;
 
 /// 2-radix FFT.
 ///
@@ -36,7 +37,7 @@ pub fn fft2_inverse<F: Field>(zp: &F, data: &mut [F::U], omega: F::U) {
     let len = data.len();
     let len_inv = zp.inv(zp.from_u64(len as u64));
     fft2(zp, data, omega_inv);
-    for mut x in data {
+    for x in data {
         *x = zp.mul(*x, len_inv);
     }
 }
@@ -113,7 +114,7 @@ fn fft3_in_place_rearrange<F: Field>(_zp: &F, data: &mut [F::U]) {
 
 fn fft3_in_place_compute<F: Field>(zp: &F, data: &mut [F::U], omega: F::U) {
     let mut step = 1;
-    let big_omega = zp.qpow(omega, (data.len() as u32 / 3));
+    let big_omega = zp.qpow(omega, data.len() as u32 / 3);
     let big_omega_sq = zp.mul(big_omega, big_omega);
     while step < data.len() {
         let jump = 3 * step;
@@ -166,7 +167,7 @@ pub fn fft3_inverse<F: Field>(zp: &F, data: &mut [F::U], omega: F::U) {
     let omega_inv = zp.inv(omega);
     let len_inv = zp.inv(zp.from_u64(data.len() as u64));
     fft3(zp, data, omega_inv);
-    for mut x in data {
+    for x in data {
         *x = zp.mul(*x, len_inv);
     }
 }

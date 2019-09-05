@@ -22,11 +22,16 @@ categories = [ "cryptography" ]
 travis-ci = { repository = "snipsco/rust-threshold-secret-sharing" }
 
 [features]
-paramgen = ["primal"]
+#paramgen = ["primal"]
+default = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_tstd", "sgx_rand"]
 
 [dependencies]
-rand = "0.3.*"
-primal = { version = "0.2", optional = true }
+#primal = { version = "0.2", optional = true }
+
+[target.'cfg(not(target_env = "sgx"))'.dependencies]
+sgx_rand = { rev = "v1.0.8", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
+sgx_tstd = { rev = "v1.0.8", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 
 [dev-dependencies]
 bencher = "0.1"

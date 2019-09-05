@@ -11,6 +11,7 @@
 
 use numtheory::{mod_pow, fft2_inverse, fft3};
 use rand;
+use std::prelude::v1::*;
 
 /// Parameters for the packed variant of Shamir secret sharing,
 /// specifying number of secrets shared together, total number of shares, and privacy threshold.
@@ -140,7 +141,7 @@ impl PackedSecretSharing {
         // sample randomness using secure randomness
         use rand::distributions::Sample;
         let mut range = rand::distributions::range::Range::new(0, self.prime - 1);
-        let mut rng = rand::OsRng::new().unwrap();
+        let mut rng = rand::SgxRng::new().unwrap();
         let randomness: Vec<i64> =
             (0..self.threshold).map(|_| range.sample(&mut rng) as i64).collect();
         // recover polynomial

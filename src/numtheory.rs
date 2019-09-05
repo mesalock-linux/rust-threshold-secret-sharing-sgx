@@ -8,6 +8,8 @@
 
 //! Various number theoretic utility functions used in the library.
 
+use std::prelude::v1::*;
+
 /// Euclidean GCD implementation (recursive). The first member of the returned
 /// triplet is the GCD of `a` and `b`.
 pub fn gcd(a: i64, b: i64) -> (i64, i64, i64) {
