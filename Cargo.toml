@@ -30,8 +30,8 @@ mesalock_sgx = ["sgx_tstd", "sgx_rand"]
 #primal = { version = "0.2", optional = true }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
-sgx_rand = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
-sgx_tstd = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
+sgx_rand = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
+sgx_tstd = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
 
 [dev-dependencies]
 bencher = "0.1"
